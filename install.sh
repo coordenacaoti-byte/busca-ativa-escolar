@@ -233,6 +233,7 @@ def init_db():
             nome VARCHAR(255) UNIQUE NOT NULL
         );
     """)
+    cur.execute("ALTER TABLE escolas ADD COLUMN IF NOT EXISTS ordem INTEGER;")
 
     cur.execute("SELECT COUNT(*) as total FROM escolas;")
     if cur.fetchone()["total"] == 0:
@@ -262,7 +263,6 @@ def init_db():
                 (nome, indice)
             )
 
-    cur.execute("ALTER TABLE escolas ADD COLUMN IF NOT EXISTS ordem INTEGER;")
     cur.execute("""
         UPDATE escolas SET ordem = sub.rn
         FROM (SELECT id, ROW_NUMBER() OVER (ORDER BY nome) AS rn FROM escolas) AS sub
