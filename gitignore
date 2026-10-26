@@ -1,0 +1,6 @@
+# Nunca versionar dados reais, senhas nem copias de seguranca
+.env
+backups/
+*.sql
+*.bak
+__pycache__/
